@@ -1,37 +1,14 @@
+import { NewUser } from '../types/interfaces';
 import firebase, { firestore } from '../utils/firebase';
 
-enum Category {
-	normal= 'Normal',
-	handDrawn = 'Hand Drawn',
-	digitalArt = 'Digital Art',
-	monochrome = 'MonoChrome'
-}
-enum Gender {
-	male = 'Male',
-	female = 'Female',
-	nonBinary = 'Non-Binary',
-	none = 'Prefer-not-say'
-}
 
-interface NewUser {
-	firstName: string;
-	lastName: string;
-	name: string;
-	avatar: string;
-	createdAt: string;
-	email: string;
-	gender: Gender,
-	country: string,
-	area: string;
-	notificationCount: number;
-	phoneNumber: number;
-	categories: Array<Category>
-}
+
+
 
 
 export const signupUser = async (req: any, res: any) => {
 	console.log(req.body);
-	const newUser:NewUser = {
+	const newUser: NewUser = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		name: `${req.body.firstName} + ${req.body.lastName}`,
@@ -80,7 +57,7 @@ export const signupUser = async (req: any, res: any) => {
 			message: `User created successfully`,
 		});
 	} catch (e) {
-		return res.status(400).json({ error: 'Something went wrong', message: e });
+		return res.status(400).error(e.message)
 	}
 };
 
@@ -121,9 +98,22 @@ export const loginUser = async (req: any, res: any) => {
 		if (e.code === 'auth/wrong-password') {
 			res.status(400).json({ Error: 'Wrong credentials. Please try again' });
 		} else {
-			res.status(400).json({ error: e });
+			return res.status(400).error(e.message)
 		}
 	}
 };
 
 
+export const getUserByCategories = async(req:any, res:any) => {
+	const category = req.query.category;
+	const categoryUser:any = [];
+	try {
+		const users = await firestore.collection('users').where('categories', 'array-contains', category).get();
+		users.forEach((user) => {
+			categoryUser.push(user.data());
+		})
+		return res.status(200).json(categoryUser);
+	} catch (e) {
+		return res.status(400).error(e.message)
+	}
+};

@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 
 import appUsers from './routes/users';
+import appProducts from './routes/products';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -11,3 +12,4 @@ import appUsers from './routes/users';
 // });
 
 export const users = functions.https.onRequest(appUsers);
+export const products = functions.https.onRequest(appProducts);

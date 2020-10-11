@@ -1,7 +1,5 @@
 # Root URL -> https://us-central1-open-labs-44022.cloudfunctions.net
 
-# API Endpoints
-
 ## USERS
 
 ### /users/signup -> SignupUser

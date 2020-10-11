@@ -1,8 +1,8 @@
 # Root URL -> https://us-central1-open-labs-44022.cloudfunctions.net
 
 # Routes ->
-    [Users](#USERS)
-    [Products](#PRODUCTS)
+[Users](#USERS)
+[Products](#PRODUCTS)
 
 
 ## USERS

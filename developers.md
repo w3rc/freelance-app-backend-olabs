@@ -6,15 +6,32 @@
 
 ### /users/signup -> SignupUser
 
-    firstName: string,
-    lastName: string,
-    avatar: string | null,
-    createdAt: ISOString,
-    email: string,
-    gender: 'Male'|'Female'|'Non-binary'|undefined,
-    country: string,
-    area: string,
-    phoneNumber: double,
+    firstName: string;
+	lastName: string;
+	name: string;
+	avatar: string;
+	createdAt: string;
+	email: string;
+	gender: Gender,
+	country: string,
+	area: string;
+	notificationCount: number;
+	phoneNumber: number;
+	categories: Array<Category>
+
+    Category {
+	    'Normal',
+	    'Hand Drawn',
+	    'Digital Art',
+	    'MonoChrome'
+    }
+
+    Gender {
+        'Male',
+        'Female',
+        'Non-Binary',
+        'Prefer-not-say'
+    }
 
 ### /users/login -> LoginUser
 

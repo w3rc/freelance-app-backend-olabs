@@ -1,8 +1,37 @@
 import firebase, { firestore } from '../utils/firebase';
 
+enum Category {
+	normal= 'Normal',
+	handDrawn = 'Hand Drawn',
+	digitalArt = 'Digital Art',
+	monochrome = 'MonoChrome'
+}
+enum Gender {
+	male = 'Male',
+	female = 'Female',
+	nonBinary = 'Non-Binary',
+	none = 'Prefer-not-say'
+}
+
+interface NewUser {
+	firstName: string;
+	lastName: string;
+	name: string;
+	avatar: string;
+	createdAt: string;
+	email: string;
+	gender: Gender,
+	country: string,
+	area: string;
+	notificationCount: number;
+	phoneNumber: number;
+	categories: Array<Category>
+}
+
+
 export const signupUser = async (req: any, res: any) => {
 	console.log(req.body);
-	const newUser = {
+	const newUser:NewUser = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		name: `${req.body.firstName} + ${req.body.lastName}`,
@@ -14,6 +43,7 @@ export const signupUser = async (req: any, res: any) => {
 		area: req.body.area,
 		notificationCount: 0,
 		phoneNumber: req.body.phoneNumber,
+		categories: req.body.categories
 	};
 
     let userId: string | undefined;
@@ -54,7 +84,7 @@ export const signupUser = async (req: any, res: any) => {
 	}
 };
 
-export const getUser = async (req: any, res: any) => {
+export const loginUser = async (req: any, res: any) => {
 	const user = {
 		email: req.body.email,
 		password: req.body.password,
@@ -95,3 +125,5 @@ export const getUser = async (req: any, res: any) => {
 		}
 	}
 };
+
+
